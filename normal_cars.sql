@@ -24,6 +24,7 @@ CREATE TABLE model_of_cars (
 );
 
 CREATE TABLE norm_cars (
+  id SERIAL PRIMARY KEY,
   make_id INTEGER REFERENCES make_of_cars(make_id),
   model_id INTEGER REFERENCES model_of_cars(model_id),
   year integer
@@ -41,3 +42,10 @@ INSERT INTO model_of_cars (model_code, model_title)
   SELECT DISTINCT model_code, model_title
   FROM car_models;
 
+INSERT INTO norm_cars (make_id, model_id, year)
+  SELECT make_of_cars.make_id, model_of_cars.model_id, car_models.year
+  FROM make_of_cars, model_of_cars, car_models
+  WHERE make_of_cars.make_code = car_models.make_code
+  AND model_of_cars.model_code = car_models.model_code
+  AND make_of_cars.make_title = car_models.make_title
+  AND model_of_cars.model_title = car_models.model_title;
