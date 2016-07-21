@@ -33,7 +33,6 @@ CREATE TABLE norm_cars (
 -- Create queries to insert all of the data that was in the
 -- denormal_cars.car_models table, into the new normalized tables
 -- of the normal_cars database.
-
 INSERT INTO make_of_cars (make_code, make_title)
   SELECT DISTINCT make_code, make_title
   FROM car_models;
@@ -42,6 +41,9 @@ INSERT INTO model_of_cars (model_code, model_title)
   SELECT DISTINCT model_code, model_title
   FROM car_models;
 
+-- Insert the specific values into the norm_cars table
+-- where the make and model code/titles are the same as the
+-- car_model.make/model code/titles
 INSERT INTO norm_cars (make_id, model_id, year)
   SELECT make_of_cars.make_id, model_of_cars.model_id, car_models.year
   FROM make_of_cars, model_of_cars, car_models
@@ -49,3 +51,11 @@ INSERT INTO norm_cars (make_id, model_id, year)
   AND model_of_cars.model_code = car_models.model_code
   AND make_of_cars.make_title = car_models.make_title
   AND model_of_cars.model_title = car_models.model_title;
+
+DROP TABLE IF EXISTS car_models;
+
+-- In normal.sql Create a query to get a list of all make_title values in the
+-- car_models table. (should have 71 results)
+SELECT DISTINCT make_title
+  FROM make_of_cars
+  ORDER BY make_title ASC;
