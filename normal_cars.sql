@@ -59,3 +59,12 @@ DROP TABLE IF EXISTS car_models;
 SELECT DISTINCT make_title
   FROM make_of_cars
   ORDER BY make_title ASC;
+
+-- In normal.sql Create a query to list all model_title values where the
+-- make_code is 'VOLKS' (should have 27 results)
+
+SELECT DISTINCT model_title
+  FROM norm_cars
+  INNER JOIN make_of_cars ON norm_cars.make_id = make_of_cars.make_id
+  INNER JOIN model_of_cars ON norm_cars.model_id = model_of_cars.model_id
+  WHERE make_of_cars.make_code = 'VOLKS';
