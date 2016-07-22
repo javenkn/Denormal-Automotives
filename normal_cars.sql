@@ -62,9 +62,19 @@ SELECT DISTINCT make_title
 
 -- In normal.sql Create a query to list all model_title values where the
 -- make_code is 'VOLKS' (should have 27 results)
-
 SELECT DISTINCT model_title
   FROM norm_cars
   INNER JOIN make_of_cars ON norm_cars.make_id = make_of_cars.make_id
   INNER JOIN model_of_cars ON norm_cars.model_id = model_of_cars.model_id
   WHERE make_of_cars.make_code = 'VOLKS';
+
+--In normal.sql Create a query to list all make_code, model_code, model_title,
+-- and year from car_models where the make_code is 'LAM' (should have 136 rows)
+SELECT make_code, model_code, model_title, year
+  FROM norm_cars
+  INNER JOIN make_of_cars ON norm_cars.make_id = make_of_cars.make_id
+  INNER JOIN model_of_cars ON norm_cars.model_id = model_of_cars.model_id
+  WHERE make_of_cars.make_code = 'LAM';
+
+-- In normal.sql Create a query to list all fields from all car_models in
+-- years between 2010 and 2015 (should have 7884 rows)
